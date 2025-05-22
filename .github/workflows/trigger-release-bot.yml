@@ -1,0 +1,15 @@
+name: Trigger ReleaseBot
+on:
+  push:
+    branches:
+      - 'release/*'
+jobs:
+  call-workflow-passing-data:
+    permissions:
+      contents: write
+      pull-requests: write
+      packages: write
+    uses: hsmatulis/prometheus-engine/.github/workflows/release-bot.yml@main
+    with:
+      branch_name: ${{ github.head_ref || github.ref_name }} 
+      commit_sha: ${{ github.sha }}
